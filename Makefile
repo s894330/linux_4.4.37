@@ -144,6 +144,8 @@ PHONY := _all
 _all:
 
 # Cancel implicit rules on top Makefile
+# 因為Makefile一定存在，防止make為了建造makefile而去尋找隱含命令，此舉可以增加
+# 效率
 $(CURDIR)/Makefile Makefile: ;
 
 ifneq ($(words $(subst :, ,$(CURDIR))), 1)
