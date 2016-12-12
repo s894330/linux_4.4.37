@@ -82,9 +82,11 @@ unexport GREP_OPTIONS
 # To put more focus on warnings, be less verbose as default
 # Use 'make V=1' to see the full commands
 
+# 如果command line中有定義"V"，就把KBUILD_VERBOSE的值設定V的值
 ifeq ("$(origin V)", "command line")
   KBUILD_VERBOSE = $(V)
 endif
+# default value of KBUILD_VERBOSE is 0
 ifndef KBUILD_VERBOSE
   KBUILD_VERBOSE = 0
 endif
