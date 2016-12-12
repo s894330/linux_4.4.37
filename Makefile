@@ -164,6 +164,8 @@ $(if $(KBUILD_OUTPUT),, \
 # MAKECMDGOALS 紀錄了命令列中所指定的make目標
 PHONY += $(MAKECMDGOALS) sub-make
 
+# 此規則的命令為":"，這個命令對shell來說就是no-op，整條命令的意思是：
+# "do nothing, and don't tell."
 $(filter-out _all sub-make $(CURDIR)/Makefile, $(MAKECMDGOALS)) _all: sub-make
 	@:
 
