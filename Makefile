@@ -184,7 +184,8 @@ ifeq ($(skip-makefile),)
 # Do not print "Entering directory ...",
 # but we want to display it when entering to the output directory
 # so that IDEs/editors are able to understand relative filenames.
-MAKEFLAGS += --no-print-directory
+# MAKEFLAGS += --no-print-directory
+MAKEFLAGS += --print-directory
 
 # Call a source code checker (by default, "sparse") as part of the
 # C compilation.
