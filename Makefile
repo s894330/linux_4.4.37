@@ -23,12 +23,21 @@ NAME = Blurry Fish Butt
 MAKEFLAGS += -rR --include-dir=$(CURDIR)
 
 # Avoid funny character set dependencies
+# LC_ALL: 一次設定所有的locale環境
+# LC_COLLATE: 字元順序與字串比較
+# LC_NUMERIC: 數字顯式格式
+# 設定C local表示程式的表現會與傳統的 C 語言中一樣，使用英文做訊息輸出，只能處理
+# 英文等 ASCII 碼
 unexport LC_ALL
 LC_COLLATE=C
 LC_NUMERIC=C
 export LC_COLLATE LC_NUMERIC
 
 # Avoid interference with shell env settings
+# GREP_OPTIONS variable specifies default options to be placed in front of any
+# explicit options. As this causes problems when writing portable scripts, this
+# feature will be removed in a future release of grep, and grep warns if it is
+# used
 unexport GREP_OPTIONS
 
 # We are using a recursive build, so we need to do a little thinking
