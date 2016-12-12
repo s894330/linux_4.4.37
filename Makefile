@@ -13,6 +13,13 @@ NAME = Blurry Fish Butt
 # o Do not use make's built-in rules and variables
 #   (this increases performance and avoids hard-to-debug behaviour);
 # o Look for make include files relative to root of kernel src
+#
+# MAKEFLAGS是用來傳遞給子make的參數列表，命令列中給定的參數也會加進到MAKEFLAGS變
+# 數中。
+# -r: no builtin rules
+# -R: no builtin variables
+# iiinclude-dir: Specifies a directory dir to search for included makefiles
+# $(CURDIR)代表make目前的工作目錄
 MAKEFLAGS += -rR --include-dir=$(CURDIR)
 
 # Avoid funny character set dependencies
