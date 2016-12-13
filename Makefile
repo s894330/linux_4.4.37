@@ -325,6 +325,8 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = gcc
 HOSTCXX      = g++
+# -Wall: enables all the warnings about constructions that some users consider
+# 	questionable
 # -Wmissing-prototypes: Warn if a global function is defined without a previous
 # 			prototype declaration
 # -Wstrict-prototypes: Warn if a function is declared or defined without
@@ -420,7 +422,18 @@ LINUXINCLUDE    := \
 		$(USERINCLUDE)
 
 KBUILD_CPPFLAGS := -D__KERNEL__
-
+# -Wundef: Warn if an undefined identifier is evaluated in an ‘#if’ directive
+# -Wno-trigraphs: some trigraphs in comments may affect the meaning of the
+# 		program (such as: ??/), "-Wall" will turn on this type of
+# 		warning, here we specify -Wno-trigraphs to disable this warning
+# -fno-strict-aliasing: allow alias between different type (ex: int <-> double)
+# -fno-common: specifies that the compiler should place uninitialized global
+# 		variables in the data section of the object file, rather than
+# 		generating them as common blocks. This has the effect that if
+# 		the same variable is declared (without extern) in two different
+# 		compilations, you get a multiple-definition. It is useful on
+# 		targets for which it provides better performance
+error when you link them
 KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
