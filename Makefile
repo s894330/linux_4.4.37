@@ -238,7 +238,7 @@ endif
 objtree		:= .
 src		:= $(srctree)
 obj		:= $(objtree)
-
+# VPATH 為Makefile中所有文件的搜索路徑，包括規則的依賴文件和目標文件
 VPATH		:= $(srctree)$(if $(KBUILD_EXTMOD),:$(KBUILD_EXTMOD))
 
 export srctree objtree VPATH
@@ -325,8 +325,14 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 
 HOSTCC       = gcc
 HOSTCXX      = g++
-HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89
-HOSTCXXFLAGS = -O2
+# -Wmissing-prototypes: Warn if a global function is defined without a previous
+# 			prototype declaration
+# -Wstrict-prototypes: Warn if a function is declared or defined without
+# 			specifying the argument types
+# -std=gnu89: 使用c89規範加上gcc自己的擴展
+#HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer -std=gnu89
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -std=gnu89
+#HOSTCXXFLAGS = -O2
 
 ifeq ($(shell $(HOSTCC) -v 2>&1 | grep -c "clang version"), 1)
 HOSTCFLAGS  += -Wno-unused-value -Wno-unused-parameter \
