@@ -433,7 +433,19 @@ KBUILD_CPPFLAGS := -D__KERNEL__
 # 		the same variable is declared (without extern) in two different
 # 		compilations, you get a multiple-definition. It is useful on
 # 		targets for which it provides better performance
-error when you link them
+# -Werror-implicit-function-declaration: Erro when using a function for which
+# 		the compiler has not seen a declaration ("prototype") yet
+# -Wno-format-security: disable warnings about calls to printf and scanf
+# 		functions where the format string is not a string literal and
+# 		there are no format arguments, as in printf (foo)
+# -fno-PIE: this is linker opeion, means don't produce a position independent
+# 		executable (or position independent code - PIC)
+#		PIC or PIE is a body of machine code that being placed somewhere
+#		in the primary memory, executes properly regardless of its
+#		absolute address. PIC is commonly used for shared libraries, so
+#		that the same library code can be loaded in a location in each
+#		program address space. Generating position-independent code is
+#		often the default behavior for compilers
 KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -Werror-implicit-function-declaration \
