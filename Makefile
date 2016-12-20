@@ -463,7 +463,7 @@ KBUILD_LDFLAGS_MODULE := -T $(srctree)/scripts/module-common.lds
 # Read KERNELRELEASE from include/config/kernel.release (if it exists)
 KERNELRELEASE = $(shell cat include/config/kernel.release 2> /dev/null)
 KERNELVERSION = $(VERSION)$(if $(PATCHLEVEL),.$(PATCHLEVEL)$(if $(SUBLEVEL),.$(SUBLEVEL)))$(EXTRAVERSION)
-
+# export variable for all sub-make use
 export VERSION PATCHLEVEL SUBLEVEL KERNELRELEASE KERNELVERSION
 export ARCH SRCARCH CONFIG_SHELL HOSTCC HOSTCFLAGS CROSS_COMPILE AS LD CC
 export CPP AR NM STRIP OBJCOPY OBJDUMP
@@ -540,7 +540,8 @@ no-dot-config-targets := clean mrproper distclean \
 config-targets := 0
 mixed-targets  := 0
 dot-config     := 1
-
+# 如果make的目標只包含$(no-dot-config-targets)中的變數外，沒有其他目標，就把
+# dot-config設為0
 ifneq ($(filter $(no-dot-config-targets), $(MAKECMDGOALS)),)
 	ifeq ($(filter-out $(no-dot-config-targets), $(MAKECMDGOALS)),)
 		dot-config := 0
@@ -621,6 +622,7 @@ endif # KBUILD_EXTMOD
 
 ifeq ($(dot-config),1)
 # Read in config
+# "-" means ignore the error when execute cmd
 -include include/config/auto.conf
 
 ifeq ($(KBUILD_EXTMOD),)
